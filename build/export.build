@@ -1,0 +1,6 @@
+$out_root/
+{
+  include libcrails-selenium/
+}
+
+export $out_root/libcrails-selenium/$import.target

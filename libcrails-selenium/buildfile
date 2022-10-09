@@ -1,0 +1,42 @@
+#import intf_libs += libboost-process-tests%lib{boost_process}
+import intf_libs += libcrails-tests%lib{crails-tests}
+import intf_libs += libcrails-action%lib{crails-action}
+import intf_libs += libcrails%lib{crails}
+import intf_libs += webdriverxx%lib{webdriverxx}
+
+lib{crails-selenium}: {hxx ixx txx cxx}{**} $impl_libs $intf_libs
+
+hxx{export}@./: cxx.importable = false
+
+# Build options.
+#
+cxx.poptions =+ "-I$out_root" "-I$src_root"
+
+{hbmia obja}{*}: cxx.poptions += -DLIBCRAILS_SELENIUM_STATIC_BUILD
+{hbmis objs}{*}: cxx.poptions += -DLIBCRAILS_SELENIUM_SHARED_BUILD
+
+# Export options.
+#
+lib{crails-selenium}:
+{
+  cxx.export.poptions = "-I$out_root" "-I$src_root"
+  cxx.export.libs = $intf_libs
+}
+
+liba{crails-selenium}: cxx.export.poptions += -DLIBCRAILS_SELENIUM_STATIC
+libs{crails-selenium}: cxx.export.poptions += -DLIBCRAILS_SELENIUM_SHARED
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{crails-selenium}: bin.lib.version = "-$version.project_id"
+else
+  lib{crails-selenium}: bin.lib.version = "-$version.major.$version.minor"
+
+{hxx ixx txx}{*}:
+{
+  install         = include/
+  install.subdirs = true
+}

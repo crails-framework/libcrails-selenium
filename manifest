@@ -1,0 +1,14 @@
+: 1
+name: libcrails-selenium
+version: 2.0.0
+summary: crails-selenium C++ library
+license: other: proprietary ; Not free/open source.
+license: BSD-3-Clause
+description-file: README.md
+url: https://github.com/crails-framework/libcrails-selenium
+email: michael@unetresgrossebite.com
+depends: * build2 >= 0.15.0
+depends: * bpkg >= 0.15.0
+depends: { libcrails libcrails-action libcrails-tests } ^2.0.0
+depends: libboost-process ^1.78.0
+depends: webdriverxx ^1.0.0
