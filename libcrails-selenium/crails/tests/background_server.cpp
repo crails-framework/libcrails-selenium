@@ -30,6 +30,6 @@ void BackgroundServer::start_server()
   argv[1] = "-p";
   argv[2] = "4445";
   Crails::Router::singleton::finalize(); // will be re-initialized by Launch
-  Crails::Server::launch(3, argv);
+  Crails::Server::singleton::require().launch(3, argv);
   exit(EXIT_SUCCESS);
 }
