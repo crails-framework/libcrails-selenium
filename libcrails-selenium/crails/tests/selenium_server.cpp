@@ -15,10 +15,10 @@ SeleniumServer::SeleniumServer()
     filesystem::current_path().string() + "/spec/selenium-server-standalone.jar"
   );
 
-  filesystem::canonical(java_path, ec);
+  java_path = filesystem::canonical(java_path, ec).string();
   if (ec)
     throw runtime_error(string("java jre not found at " + java_path + " (use JAVA_PATH environment variable)"));
-  filesystem::canonical(server_path, ec);
+  server_path = filesystem::canonical(server_path, ec).string();
   if (ec)
     throw runtime_error(string("selenium standalone server jar not found at " + server_path + " (use SELENIUM_STANDALONE_SERVER_PATH environment variable)"));
 
